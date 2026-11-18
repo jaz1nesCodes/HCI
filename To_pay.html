@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To Pay | Pure Silver Jewelry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0b0a08;--panel:#14120e;--gold:#e0b51e;--bright:#ffdf58;--cream:#fffbe4;--muted:#b9b09c;--line:#51400e}
+body{background:var(--bg);color:var(--cream);font-family:Poppins,sans-serif;font-size:13px;min-height:100vh}
+a{text-decoration:none;color:inherit}
+header{height:83px;background:#12110d;border-bottom:1px solid var(--gold);display:flex;align-items:center;justify-content:space-between;padding:0 3.2%;gap:25px}
+.brand{color:#ffd400;font-size:clamp(23px,3vw,36px);font-weight:600;letter-spacing:.5px;white-space:nowrap}
+nav{display:flex;align-items:center;gap:23px}
+nav a{font-size:13px;color:var(--cream)}
+nav a:hover{color:var(--gold)}
+nav .profile-link{background:linear-gradient(120deg,#f5d34b,#c99b09);color:#171307;padding:10px 22px;border-radius:2px;font-weight:600}
+.layout{max-width:1450px;margin:30px auto 16px;padding:0 3.8%;display:grid;grid-template-columns:245px minmax(0,1fr);gap:24px;min-height:calc(100vh - 113px)}
+.sidebar,.content{border:1px solid #40330e;background:linear-gradient(130deg,#15130f,#100f0c);min-height:670px}
+.sidebar{padding:20px 19px 28px}
+.side-group{margin-bottom:18px}
+.side-heading{display:flex;align-items:center;gap:12px;color:#fffbe4;font-size:13px;font-weight:600;margin:0 0 9px}
+.side-icon{width:17px;text-align:center;color:var(--gold);font-size:19px}
+.side-link{display:block;margin-left:28px;padding:8px 10px;color:#c9bea2;font-size:12px;border-left:2px solid transparent}
+.side-link:hover{color:var(--bright)}
+.side-link.active{background:#211c0d;color:var(--bright);border-left-color:var(--gold)}
+.content{padding:25px 30px 35px}
+.content-head{border-bottom:1px solid #443711;padding-bottom:18px;margin-bottom:28px}
+h1{font:600 30px/1.2 'Cormorant Garamond',serif;color:var(--cream)}
+h1 span{color:var(--gold)}
+.subtitle{font-size:12px;color:var(--muted);margin-top:5px}
+.address-list{display:grid;gap:14px}
+
+.order-list{display:grid;gap:16px}
+.order-card{border:1px solid #40330e;background:linear-gradient(135deg,#15130f,#100f0c)}
+.order-top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:15px 18px;background:#1b180e;border-bottom:1px solid #40330e}
+.order-number{font-size:13px;font-weight:700;color:var(--bright)}
+.order-date{font-size:11px;color:var(--muted)}
+.order-product{display:grid;grid-template-columns:84px minmax(0,1fr) auto;gap:15px;align-items:center;padding:15px 18px;border-bottom:1px solid #302710}
+.order-product img{width:84px;height:84px;object-fit:cover;border:1px solid #6d5615;padding:2px;background:#0e0d09}
+.order-product-info strong{font-size:13px;color:var(--cream);font-weight:600}
+.order-product-info p{font-size:11px;color:var(--muted);margin-top:4px}
+.order-product-price{font-size:12px;color:var(--cream);white-space:nowrap}
+.order-bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 18px}
+.order-total{color:var(--bright);font-size:13px}
+.order-actions{display:flex;gap:10px}
+.cancel-order,.to-pay-button{padding:8px 13px;font:600 11px Poppins,sans-serif;background:transparent;cursor:pointer}
+.cancel-order{border:1px solid #874238;color:#e58a80}
+.to-pay-button{border:1px solid var(--gold);color:var(--bright)}
+.cancel-order:hover{background:#321a16}
+.to-pay-button:hover{background:var(--gold);color:#151108}
+
+.order-list{display:grid;gap:14px}
+.order-card{border:1px solid #40330e;background:#100f0c;padding:17px 19px}
+.order-top{display:flex;justify-content:space-between;gap:18px;align-items:center}
+.order-number{font-size:13px;font-weight:700;color:var(--cream)}
+.order-status{font-size:11px;font-weight:600;color:var(--bright);border:1px solid #806516;padding:4px 9px}
+.order-meta{color:var(--muted);font-size:12px;margin-top:8px;line-height:1.7}
+.order-items{border-top:1px solid #40330e;margin-top:14px;padding-top:12px;color:#e8e0c9;font-size:12px}
+.order-total{margin-top:10px;color:var(--bright);font-size:13px;font-weight:600}
+.address-card{border:1px solid #40330e;background:#100f0c;padding:17px 19px}
+.address-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+.recipient{font-size:13px;font-weight:700;color:var(--cream)}
+.postal{font-size:13px;font-weight:600;color:#e8e0c9}
+.address-text{color:var(--muted);font-size:12px;margin-top:8px;line-height:1.7}
+.card-actions{border-top:1px solid #40330e;margin-top:16px;padding-top:12px;display:flex;gap:10px}
+.small-btn{font:500 11px Poppins,sans-serif;padding:8px 11px;background:transparent;cursor:pointer;border:1px solid var(--gold);color:var(--bright)}
+.small-btn.active{border-color:#168c51;color:#37d17c}
+.small-btn.remove{border-color:#874238;color:#e58a80}
+.bottom-actions{border-top:1px solid #443711;margin-top:27px;padding-top:20px;display:flex;justify-content:flex-end}
+.add-btn{display:inline-block;background:linear-gradient(120deg,#f5d34b,#c99b09);color:#171307;padding:12px 27px;font-size:11px;font-weight:600;letter-spacing:.2px}
+.add-btn:hover{filter:brightness(1.1)}
+.empty{padding:30px;border:1px dashed #5a4713;color:var(--muted);text-align:center}
+[hidden]{display:none!important}
+@media(max-width:850px){header{height:auto;min-height:83px;flex-wrap:wrap;padding:15px 4%}nav{width:100%;flex-wrap:wrap;gap:12px 18px}.layout{grid-template-columns:1fr;margin-top:18px}.sidebar{min-height:0;padding:18px;display:flex;flex-wrap:wrap;gap:16px 25px}.side-group{margin:0}.content{min-height:560px}}
+@media(max-width:520px){.content{padding:20px 16px}.order-product{grid-template-columns:65px minmax(0,1fr);gap:11px}.order-product img{width:65px;height:65px}.order-product-price{grid-column:2}.order-bottom{align-items:flex-start;flex-direction:column}.order-actions{width:100%}.order-actions button{flex:1}.order-top{align-items:flex-start;flex-direction:column;gap:8px}.address-top{flex-direction:column;gap:5px}.bottom-actions{justify-content:stretch}.add-btn{text-align:center;width:100%}.brand{font-size:24px}}
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="brand">Pure Silver Jewelry</a>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="collection/collection.html">Collection</a>
+    <a href="contacts.html">Contacts</a><a href="about.html">About Us</a><a class="profile-link" href="Profile.html">Profile</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <!-- The circled profile/avatar/edit-profile block has been removed. -->
+    <div class="side-group">
+      <div class="side-heading">My Account</div>
+      <a class="side-link" href="Profile.html">Profile</a>
+      <a class="side-link" href="Bank-Cards.html">Banks &amp; Cards</a>
+      <a class="side-link" href="Address.html">Addresses</a>
+      <a class="side-link" href="Privacy-Settings.html">Privacy Settings</a>
+      <a class="side-link" href="Notification-Settings.html">Notification Settings</a>
+    </div>
+    <div class="side-group">
+      <div class="side-heading">My Purchases</div>
+      <a class="side-link active" href="to_pay.html">To Pay</a>
+      <a class="side-link" href="to_ship.html">To Ship</a>
+      <a class="side-link" href="to_receive.html">To Receive</a>
+      <a class="side-link" href="complete.html">Complete</a>
+    </div>
+  </aside>
+  <main class="content">
+    <div class="content-head">
+      <h1><span>To Pay</span></h1>
+      <p class="subtitle">Orders awaiting payment</p>
+    </div>
+
+    <div class="order-list" id="order-list">
+      <div class="empty" id="empty-orders">
+        You haven't placed any orders yet. Your purchases will appear here.
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+(function(){
+  const list = document.getElementById("order-list");
+  const empty = document.getElementById("empty-orders");
+  const money = n => "₱" + Number(n || 0).toLocaleString("en-PH", {maximumFractionDigits: 2});
+
+  function readOrders(){
+    try {
+      const orders = JSON.parse(localStorage.getItem("pureSilverOrders") || "[]");
+      return Array.isArray(orders) ? orders : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function render(){
+    const orders = readOrders().filter(order => (order.status || "To Pay") === "To Pay");
+    list.querySelectorAll(".order-card").forEach(card => card.remove());
+    empty.hidden = orders.length > 0;
+
+    orders.forEach(order => {
+      const card = document.createElement("article");
+      card.className = "order-card";
+
+      const top = document.createElement("div");
+      top.className = "order-top";
+
+      const heading = document.createElement("div");
+      heading.className = "order-number";
+      heading.textContent = "Orders";
+
+      const date = document.createElement("div");
+      date.className = "order-date";
+      const parsedDate = new Date(order.createdAt || Date.now());
+      date.textContent = Number.isNaN(parsedDate.getTime())
+        ? ""
+        : parsedDate.toLocaleString("en-PH", {
+            month: "short", day: "numeric", year: "numeric",
+            hour: "numeric", minute: "2-digit", hour12: true
+          });
+
+      top.append(heading, date);
+      card.append(top);
+
+      (Array.isArray(order.items) ? order.items : []).forEach(item => {
+        const row = document.createElement("div");
+        row.className = "order-product";
+
+        const img = document.createElement("img");
+        img.alt = item.name || "Product";
+        img.src = item.image || "";
+        if (!item.image) img.style.visibility = "hidden";
+
+        const info = document.createElement("div");
+        info.className = "order-product-info";
+
+        const name = document.createElement("strong");
+        name.textContent = item.name || "Product";
+
+        const qty = document.createElement("p");
+        qty.textContent = "Qty: " + Math.max(1, Number(item.quantity) || 1);
+
+        info.append(name, qty);
+
+        const price = document.createElement("strong");
+        price.className = "order-product-price";
+        price.textContent = money(item.lineTotal ?? (Number(item.price || 0) * Number(item.quantity || 1)));
+
+        row.append(img, info, price);
+        card.append(row);
+      });
+
+      const bottom = document.createElement("div");
+      bottom.className = "order-bottom";
+
+      const total = document.createElement("strong");
+      total.className = "order-total";
+      total.textContent = "Order Total: " + money(order.total);
+
+      const actions = document.createElement("div");
+      actions.className = "order-actions";
+
+      const cancel = document.createElement("button");
+      cancel.type = "button";
+      cancel.className = "cancel-order";
+      cancel.textContent = "Cancel Order";
+      cancel.addEventListener("click", function(){
+        if (!confirm("Cancel this order?")) return;
+        const allOrders = readOrders();
+        const index = allOrders.findIndex(savedOrder => savedOrder.id && savedOrder.id === order.id);
+        if (index >= 0) {
+          allOrders.splice(index, 1);
+          localStorage.setItem("pureSilverOrders", JSON.stringify(allOrders));
+          render();
+        }
+      });
+
+      const toPay = document.createElement("button");
+      toPay.type = "button";
+      toPay.className = "to-pay-button";
+      toPay.textContent = "To Pay";
+      toPay.addEventListener("click", function(){
+        alert("This order is awaiting payment. Payment processing can be connected here.");
+      });
+
+      actions.append(cancel, toPay);
+      bottom.append(total, actions);
+      card.append(bottom);
+      list.append(card);
+    });
+  }
+
+  render();
+  window.addEventListener("storage", render);
+})();
+</script>
+</body>
+</html>
