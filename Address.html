@@ -60,7 +60,6 @@ h1 span{color:var(--gold)}
 </header>
 <div class="layout">
   <aside class="sidebar">
-    <!-- The circled profile/avatar/edit-profile block has been removed. -->
     <div class="side-group">
       <div class="side-heading">My Account</div>
       <a class="side-link" href="Profile.html">Profile</a>
@@ -101,7 +100,6 @@ h1 span{color:var(--gold)}
   }
   let addresses=read();
   function render(){
-    // Preserve the empty placeholder but clear rendered cards each refresh.
     [...list.querySelectorAll('.address-card')].forEach(el=>el.remove());
     empty.hidden=addresses.length>0;
     addresses.forEach((a,index)=>{
