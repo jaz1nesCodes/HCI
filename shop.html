@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="practice.css">
+    <link rel="stylesheet" href="shop.css">
 
     <title>Pure Silver Jewelry</title>
 </head>
@@ -162,7 +162,7 @@
 
             <button
                 class="cart-btn"
-                data-name="Luxury Silver Watch"
+                data-name="Diamon luxurius earings"
                 data-price="2499"
             >
                 Add to Cart
@@ -189,8 +189,8 @@
 
             <button
                 class="cart-btn"
-                data-name="Luxury Silver Watch"
-                data-price="2499"
+                data-name="diamon and gold bracelet"
+                data-price="8499"
             >
                 Add to Cart
             </button>
@@ -214,8 +214,8 @@
 
             <button
                 class="cart-btn"
-                data-name="Luxury Silver Watch"
-                data-price="2499"
+                data-name="Blue diamond ring"
+                data-price="90499"
             >
                 Add to Cart
             </button>
@@ -239,8 +239,8 @@
 
             <button
                 class="cart-btn"
-                data-name="Luxury Silver Watch"
-                data-price="2499"
+                data-name="gold ring"
+                data-price="4499"
             >
                 Add to Cart
             </button>
@@ -264,8 +264,8 @@
 
             <button
                 class="cart-btn"
-                data-name="Luxury Silver Watch"
-                data-price="2499"
+                data-name="diamond ring"
+                data-price="50499"
             >
                 Add to Cart
             </button>
@@ -295,6 +295,7 @@
         // =========================
 
         let cart = [];
+        const CART_STORAGE_KEY = "pureSilverCheckoutItems";
 
 
         // =========================
@@ -336,12 +337,15 @@
 
                 const price =
                     button.getAttribute("data-price");
+                const image = button.closest(".product-card").querySelector("img")?.src || "";
 
-
-                cart.push({
-                    name: name,
-                    price: price
-                });
+                cart.push({ name: name, price: Number(price), image: image, quantity: 1 });
+                try {
+                    const savedCart = JSON.stringify(cart);
+                    localStorage.setItem(CART_STORAGE_KEY, savedCart);
+                    localStorage.setItem("pureSilverCart", savedCart);
+                    localStorage.setItem("cart", savedCart);
+                } catch (e) { }
 
 
                 cartCount.textContent =
@@ -415,8 +419,16 @@
 
             } else {
 
-                window.location.href =
-                    "checkout.html";
+                try {
+                    const savedCart = JSON.stringify(cart);
+                    localStorage.setItem(CART_STORAGE_KEY, savedCart);
+                    localStorage.setItem("pureSilverCart", savedCart);
+                    localStorage.setItem("cart", savedCart);
+                } catch (e) {
+                    alert("Unable to save your cart in this browser. Please enable local storage and try again.");
+                    return;
+                }
+                window.location.href = "checkout.html";
 
             }
 
