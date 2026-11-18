@@ -1,0 +1,317 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #080808;
+    color: #f5f5f5;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+}
+
+/* NAVBAR - matches the Pure Silver Jewelry shop page */
+.nav {
+    min-height: 100px;
+    background: #111;
+    border-bottom: 1px solid #d6ad32;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 12px 3%;
+}
+
+.branding {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 0;
+}
+
+.branding img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.branding-title {
+    color: #ffd000;
+    font-size: clamp(22px, 2.6vw, 40px);
+    letter-spacing: 1px;
+}
+
+.shop-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.link {
+    color: #fff;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 16px;
+    transition: color .2s ease;
+}
+
+.link:hover,
+.link.active {
+    color: #e1bb3d;
+}
+
+/* PAGE INTRO */
+main {
+    width: min(1120px, 92%);
+    margin: 0 auto;
+}
+
+.contact-heading {
+    text-align: center;
+    padding: 58px 16px 38px;
+}
+
+.eyebrow {
+    color: #d9b33b;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+}
+
+.contact-heading h2 {
+    font-size: clamp(36px, 5vw, 52px);
+    margin-bottom: 14px;
+}
+
+.contact-heading h2 span {
+    color: #e0b936;
+}
+
+.contact-heading > p:last-child {
+    color: #bdbdbd;
+    line-height: 1.7;
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+/* TWO-COLUMN CONTACT AREA */
+.contact-layout {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    gap: 28px;
+    align-items: stretch;
+    padding-bottom: 55px;
+}
+
+.contact-info,
+.contact-form-card {
+    border: 1px solid #b9972e;
+    background: #111;
+    padding: 32px;
+}
+
+.contact-info h3,
+.contact-form-card h3 {
+    color: #e1bb3d;
+    font-size: 25px;
+    margin-bottom: 12px;
+}
+
+.info-intro,
+.form-intro {
+    color: #bdbdbd;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 17px 0;
+    border-bottom: 1px solid #292929;
+}
+
+.info-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border: 1px solid #c9a536;
+    border-radius: 50%;
+    color: #e1bb3d;
+    font-size: 20px;
+}
+
+.info-item h4 {
+    color: #e1bb3d;
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+.info-item p {
+    color: #ccc;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.contact-note {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 28px;
+    color: #c8c8c8;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.contact-note span {
+    color: #e1bb3d;
+    font-size: 25px;
+}
+
+/* FORM */
+.form-intro {
+    margin-bottom: 22px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 18px;
+}
+
+.field label {
+    color: #e6c34d;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.field input,
+.field textarea {
+    width: 100%;
+    background: #080808;
+    color: #fff;
+    border: 1px solid #49412b;
+    border-radius: 3px;
+    padding: 13px 14px;
+    font: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+    border-color: #d9b33b;
+    box-shadow: 0 0 0 2px rgba(217, 179, 59, .12);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+    color: #777;
+}
+
+.field textarea {
+    resize: vertical;
+    min-height: 135px;
+}
+
+.send-btn {
+    background: #d5ad36;
+    color: #090909;
+    border: none;
+    padding: 13px 22px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.send-btn:hover {
+    background: #f0ca52;
+    transform: translateY(-2px);
+}
+
+.send-btn span {
+    margin-left: 8px;
+    font-size: 18px;
+}
+
+#form-status {
+    color: #e6c34d;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-top: 16px;
+}
+
+footer {
+    border-top: 1px solid #3d3320;
+    color: #888;
+    text-align: center;
+    padding: 22px 12px;
+    font-size: 13px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .nav {
+        flex-direction: column;
+        padding: 16px;
+    }
+
+    .shop-link {
+        justify-content: center;
+        gap: 14px 18px;
+    }
+
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .branding {
+        gap: 10px;
+    }
+
+    .branding img {
+        width: 56px;
+        height: 56px;
+    }
+
+    .shop-link {
+        gap: 12px;
+    }
+
+    .link {
+        font-size: 14px;
+    }
+
+    .contact-heading {
+        padding-top: 42px;
+    }
+
+    .contact-info,
+    .contact-form-card {
+        padding: 23px 18px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Pure Silver Jewelry</title>
+    <link rel="stylesheet" href="contacts.css">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="branding">
+            <img src="Gold Black and White Elegant Jewelry Logo.png" alt="Pure Silver Jewelry Logo">
+            <h1 class="branding-title">Pure Silver Jewelry</h1>
+        </div>
+
+        <div class="shop-link">
+            <a href="practice.html" class="link">Home</a>
+            <a href="practice.html#products" class="link">Shop</a>
+            <a href="collection.html" class="link">Collection</a>
+            <a href="contacts.html" class="link active">Contacts</a>
+            <a href="aboutus.html" class="link">About us</a>
+            <a href="practice.html" class="link">🛒 Cart</a>
+            <a href="login.html" class="link">Log In</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="contact-heading">
+            <p class="eyebrow">WE'RE HERE TO HELP</p>
+            <h2>Contact <span>Us</span></h2>
+            <p>Have a question about our jewelry or your order? Send us a message and we'll be happy to assist you.</p>
+        </section>
+
+        <section class="contact-layout">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p class="info-intro">We'd love to hear from you. Reach out to us through the details below or use the contact form.</p>
+
+                <div class="info-item">
+                    <span class="info-icon">✉</span>
+                    <div>
+                        <h4>Email</h4>
+                        <p>your-email@example.com</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">☎</span>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+63 XXX XXX XXXX</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">⌖</span>
+                    <div>
+                        <h4>Location</h4>
+                        <p>Your store address here</p>
+                    </div>
+                </div>
+
+                <div class="contact-note">
+                    <span>✧</span>
+                    <p><strong>Pure Silver Jewelry</strong><br>Elegance that lasts. Crafted for every moment.</p>
+                </div>
+            </div>
+
+            <div class="contact-form-card">
+                <h3>Send Us a Message</h3>
+                <p class="form-intro">Fill out the form and tell us how we can help.</p>
+
+                <form id="contact-form">
+                    <div class="form-row">
+                        <div class="field">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="field">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="What is your message about?" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" rows="6" placeholder="Write your message here..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="send-btn">Send Message <span>→</span></button>
+                    <p id="form-status" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Pure Silver Jewelry. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Demo form: validates the fields and displays a confirmation.
+        // It does not send/store messages. Connect an email service or backend to receive submissions.
+        document.getElementById("contact-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const status = document.getElementById("form-status");
+
+            if (!name) return;
+
+            status.textContent = "Thank you, " + name + "! Your message is ready. This demo form does not send messages yet.";
+            this.reset();
+        });
+    </script>
+</body>
+</html>
