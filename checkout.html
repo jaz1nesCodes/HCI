@@ -78,6 +78,7 @@
     .place-order { display: block; width: 100%; margin-top: 20px; padding: 14px 18px; text-align: center; border: 1px solid var(--gold); background: linear-gradient(120deg, #f5d34b, #c99b09); color: #151108; font: 600 12px 'Poppins', sans-serif; letter-spacing: 1px; cursor: pointer; }
     .place-order:hover { background: transparent; color: var(--light-gold); }
     .secure-note { color: var(--muted); text-align: center; font-size: 10px; margin-top: 12px; }
+.order-confirmation { color: var(--light-gold); text-align: center; font-size: 12px; margin-top: 12px; }
     footer { border-top: 1px solid var(--gold); padding: 24px 7%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 11px; }
     footer strong { color: var(--gold); font: 600 19px 'Cormorant Garamond', serif; }
     @media (max-width: 850px) {
@@ -240,53 +241,107 @@
     const parsed = Number(cleaned);
     return Number.isFinite(parsed) ? parsed : 0;
   };
+
+  const cartKeys = ["pureSilverCheckoutItems", "pureSilverCart", "cart", "shoppingCart"];
   let items = [];
-  // Read the shared cart key first, then older names used by previous versions.
-  for (const key of ["pureSilverCheckoutItems", "pureSilverCart", "cart", "shoppingCart"]) {
+  let sourceCartKey = "";
+  for (const key of cartKeys) {
     try {
       const stored = JSON.parse(localStorage.getItem(key) || "null");
-      if (Array.isArray(stored) && stored.length) { items = stored; break; }
+      if (Array.isArray(stored) && stored.length) {
+        items = stored;
+        sourceCartKey = key;
+        break;
+      }
     } catch (e) {}
   }
-  list.innerHTML = "";
+
+  const shipping = 0;
+  const discount = 0;
   let subtotal = 0;
-  if (!items.length) {
+  const normalizedItems = items.map(item => {
+    const price = parsePrice(item.price ?? item.unitPrice ?? item.amount ?? item.productPrice);
+    const quantity = Math.max(1, parseInt(item.quantity ?? item.qty ?? 1, 10) || 1);
+    const lineTotal = price * quantity;
+    subtotal += lineTotal;
+    return {
+      name: item.name || item.title || "Product",
+      image: item.image || item.img || "",
+      price,
+      quantity,
+      lineTotal
+    };
+  });
+
+  list.innerHTML = "";
+  if (!normalizedItems.length) {
     empty.style.display = "block";
     placeBtn.disabled = true;
     note.textContent = "Add items from the shop before placing an order.";
   } else {
     empty.style.display = "none";
-    items.forEach(item => {
-      const price = parsePrice(item.price ?? item.unitPrice ?? item.amount ?? item.productPrice);
-      const qty = Math.max(1, parseInt(item.quantity ?? item.qty ?? 1, 10) || 1);
-      const lineTotal = price * qty;
-      subtotal += lineTotal;
+    normalizedItems.forEach(item => {
       const row = document.createElement("div");
       row.className = "product";
+
       const img = document.createElement("img");
-      img.alt = item.name || item.title || "Product";
-      img.src = item.image || item.img || "";
-      if (!item.image && !item.img) img.style.visibility = "hidden";
+      img.alt = item.name;
+      img.src = item.image;
+      if (!item.image) img.style.visibility = "hidden";
+
       const info = document.createElement("div");
       const heading = document.createElement("h3");
-      heading.textContent = item.name || item.title || "Product";
+      heading.textContent = item.name;
       const desc = document.createElement("p");
-      desc.textContent = "Quantity: " + qty + " · Unit price: " + money(price);
+      desc.textContent = "Quantity: " + item.quantity + " · Unit price: " + money(item.price);
       info.append(heading, desc);
+
       const amount = document.createElement("div");
       amount.className = "product-price";
-      amount.textContent = money(lineTotal);
+      amount.textContent = money(item.lineTotal);
+
       row.append(img, info, amount);
       list.appendChild(row);
     });
     placeBtn.disabled = false;
     note.textContent = "Your selected items are ready for checkout.";
   }
-  const shipping = 0, discount = 0;
+
   subtotalEl.textContent = money(subtotal);
   shippingEl.textContent = money(shipping);
   discountEl.textContent = money(discount);
   totalEl.textContent = money(subtotal + shipping - discount);
+
+  placeBtn.addEventListener("click", function(){
+    if (!normalizedItems.length || placeBtn.disabled) return;
+
+    let orders = [];
+    try {
+      const saved = JSON.parse(localStorage.getItem("pureSilverOrders") || "[]");
+      if (Array.isArray(saved)) orders = saved;
+    } catch (e) {}
+
+    const order = {
+      id: String(Date.now()) + "-" + Math.random().toString(36).slice(2, 8),
+      status: "To Pay",
+      createdAt: new Date().toISOString(),
+      items: normalizedItems,
+      subtotal,
+      shipping,
+      discount,
+      total: subtotal + shipping - discount
+    };
+
+    orders.unshift(order);
+    localStorage.setItem("pureSilverOrders", JSON.stringify(orders));
+
+    // Clear the cart after successfully saving the order, so it is not ordered twice.
+    cartKeys.forEach(key => localStorage.removeItem(key));
+
+    placeBtn.disabled = true;
+    note.textContent = "Order placed! Redirecting to your To Pay orders...";
+    window.location.href = "to_pay.html";
+  });
 })();
 </script>
 <script>
@@ -315,6 +370,9 @@
   }
 })();
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
