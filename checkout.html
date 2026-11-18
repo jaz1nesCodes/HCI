@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Pure Silver Jewelry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #0b0a08; --card: #14120e; --gold: #e0b51e;
+      --light-gold: #ffdf58; --cream: #fffbe4; --muted: #b9b09c;
+      --line: #51400e;
+    }
+    body { background: var(--black); color: var(--cream); font-family: 'Poppins', sans-serif; line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+    header {
+      background: #12110d; border-bottom: 1px solid var(--gold); padding: 14px 3%;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .brand { color: #ffd400; font-size: clamp(21px, 3vw, 34px); font-weight: 600; letter-spacing: 1px; white-space: nowrap; }
+    nav { display: flex; align-items: center; gap: 22px; }
+    nav a { color: var(--cream); font-size: 13px; transition: color .25s; }
+    nav a:hover, nav a.active { color: var(--gold); }
+    .page-heading { padding: 48px 7% 28px; text-align: center; background: radial-gradient(ellipse at center top, #30250d, transparent 70%); }
+    .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: 5px; font-size: 11px; margin-bottom: 8px; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; line-height: 1.15; }
+    h1 { font-size: clamp(42px, 5vw, 60px); font-weight: 600; }
+    h1 span, h2 span { color: var(--gold); }
+    .page-heading p { color: var(--muted); font-size: 13px; margin-top: 10px; }
+    main { max-width: 1250px; margin: 0 auto; padding: 25px 5% 80px; }
+    .checkout-layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(310px, .85fr); gap: 28px; align-items: start; }
+    .left-column, .right-column { display: grid; gap: 22px; }
+    .panel { background: var(--card); border: 1px solid var(--line); padding: 25px; }
+    .panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 20px; }
+    .panel-heading h2 { font-size: 29px; font-weight: 600; }
+    .step { color: var(--gold); font: 600 12px 'Poppins', sans-serif; letter-spacing: 1px; }
+    .muted { color: var(--muted); font-size: 12px; }
+    .address-card { border: 1px solid #7a6015; background: #19160e; padding: 17px 18px; display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+    .address-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+    .address-details { color: var(--muted); font-size: 12px; }
+    .tag { display: inline-block; color: var(--gold); border: 1px solid #806516; padding: 1px 8px; font-size: 9px; letter-spacing: 1px; margin-left: 8px; vertical-align: 2px; }
+    .outline-button { display: inline-block; flex: 0 0 auto; border: 1px solid var(--gold); color: var(--light-gold); padding: 8px 16px; font: 500 11px 'Poppins', sans-serif; background: transparent; cursor: pointer; }
+    .outline-button:hover { background: var(--gold); color: #151108; }
+    .delivery-row { display: flex; align-items: flex-start; gap: 14px; }
+    .delivery-icon { color: var(--gold); font-size: 24px; line-height: 1.2; }
+    .delivery-row strong { display: block; font-size: 13px; font-weight: 500; }
+    .delivery-row p { color: var(--muted); font-size: 12px; margin-top: 3px; }
+    .product { display: grid; grid-template-columns: 86px 1fr auto; gap: 16px; align-items: center; padding: 15px 0; border-bottom: 1px solid #302710; }
+    .product:last-child { border-bottom: 0; padding-bottom: 0; }
+    .product img { width: 86px; height: 86px; object-fit: cover; border: 1px solid #6d5615; padding: 3px; background: #0e0d09; }
+    .product h3 { font-size: 22px; font-weight: 600; margin-bottom: 2px; }
+    .product p { color: var(--muted); font-size: 11px; }
+    .product-price { color: var(--light-gold); font-size: 13px; font-weight: 600; white-space: nowrap; }
+    .empty-order { text-align: center; padding: 30px 18px 25px; border: 1px dashed #6d5615; background: #19160e; }
+    .empty-order .empty-icon { color: var(--gold); font-size: 30px; margin-bottom: 8px; }
+    .empty-order h3 { color: var(--cream); font-size: 25px; margin-bottom: 5px; }
+    .empty-order p { color: var(--muted); font-size: 12px; margin-bottom: 17px; }
+    .shop-link { display: inline-block; border: 1px solid var(--gold); color: var(--light-gold); padding: 9px 17px; font: 500 11px 'Poppins', sans-serif; letter-spacing: 1px; }
+    .shop-link:hover { background: var(--gold); color: #151108; }
+    .place-order:disabled { opacity: .45; cursor: not-allowed; background: #5b4a17; color: #ddd2a6; border-color: #5b4a17; }
+    .place-order:disabled:hover { background: #5b4a17; color: #ddd2a6; }
+    .payment-options { display: grid; gap: 11px; }
+    .payment-option { display: flex; align-items: center; gap: 12px; padding: 14px; border: 1px solid #51400e; background: #19160e; font-size: 12px; }
+    .payment-option input { accent-color: var(--gold); width: 15px; height: 15px; }
+    .payment-option span { flex: 1; }
+    .payment-option small { display: block; color: var(--muted); font-size: 10px; }
+    .payment-mark { color: var(--gold); font-size: 18px; min-width: 24px; text-align: center; }
+    .voucher-box { display: flex; gap: 9px; }
+    .voucher-box input { min-width: 0; flex: 1; padding: 11px 12px; border: 1px solid #51400e; outline: none; color: var(--cream); background: #0e0d09; font: 11px 'Poppins', sans-serif; }
+    .voucher-box input:focus { border-color: var(--gold); }
+    .summary-line { display: flex; justify-content: space-between; gap: 15px; color: var(--muted); font-size: 12px; padding: 7px 0; }
+    .summary-line strong { color: var(--cream); font-weight: 500; }
+    .summary-total { border-top: 1px solid #6d5615; margin-top: 12px; padding-top: 17px; color: var(--cream); font-size: 14px; }
+    .summary-total strong { color: var(--light-gold); font-size: 22px; font-weight: 600; }
+    .place-order { display: block; width: 100%; margin-top: 20px; padding: 14px 18px; text-align: center; border: 1px solid var(--gold); background: linear-gradient(120deg, #f5d34b, #c99b09); color: #151108; font: 600 12px 'Poppins', sans-serif; letter-spacing: 1px; cursor: pointer; }
+    .place-order:hover { background: transparent; color: var(--light-gold); }
+    .secure-note { color: var(--muted); text-align: center; font-size: 10px; margin-top: 12px; }
+    footer { border-top: 1px solid var(--gold); padding: 24px 7%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 11px; }
+    footer strong { color: var(--gold); font: 600 19px 'Cormorant Garamond', serif; }
+    @media (max-width: 850px) {
+      header { flex-wrap: wrap; }
+      nav { width: 100%; flex-wrap: wrap; gap: 12px 18px; }
+      .checkout-layout { grid-template-columns: 1fr; }
+      .right-column { grid-row: 1; }
+    }
+    @media (max-width: 520px) {
+      .page-heading { padding: 35px 5% 20px; }
+      main { padding: 18px 4% 55px; }
+      .panel { padding: 18px; }
+      .panel-heading h2 { font-size: 25px; }
+      .address-card { align-items: flex-start; flex-direction: column; }
+      .product { grid-template-columns: 70px 1fr; gap: 12px; }
+      .product img { width: 70px; height: 70px; }
+      .product-price { grid-column: 2; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="brand">Pure Silver Jewelry</a>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="collection/collection.html">Collection</a>
+      <a href="contacts.html">Contacts</a>
+      <a href="about.html">About Us</a>
+      <a href="cart.html">Cart</a>
+      <a href="Profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <section class="page-heading">
+    <div class="eyebrow">Almost Yours</div>
+    <h1>Secure <span>Checkout</span></h1>
+    <p>Review your order and confirm your delivery details.</p>
+  </section>
+
+  <main>
+    <div class="checkout-layout">
+      <div class="left-column">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Delivery <span>Address</span></h2>
+            <span class="step">01 / DELIVERY</span>
+          </div>
+          <div class="address-card" id="checkout-address-card">
+            <div>
+              <div class="address-name" id="checkout-recipient">No saved address yet</div>
+              <div class="address-details" id="checkout-address-details">Add a delivery address in Address.html.</div>
+            </div>
+            <a class="outline-button" href="Address.html">CHANGE</a>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Delivery <span>Schedule</span></h2>
+            <span class="step">02 / ARRIVAL</span>
+          </div>
+          <div class="delivery-row">
+            <div class="delivery-icon" aria-hidden="true">✧</div>
+            <div>
+              <strong>Estimated arrival: 3–5 days after ordering</strong>
+              <p>Your parcel will be delivered to your active saved address. This is an estimate and cannot be edited here.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Order <span>Items</span></h2>
+            <span class="step">03 / YOUR ITEMS</span>
+          </div>
+          <div id="checkout-items"></div>
+          <div id="checkout-empty" class="empty-order" style="display:none;">
+            <div class="empty-icon" aria-hidden="true">◇</div>
+            <h3>No items selected yet</h3>
+            <p>Your checkout is empty. Visit the shop and choose the items you want to order.</p>
+            <a class="shop-link" href="shop.html">GO TO SHOP</a>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Payment <span>Method</span></h2>
+            <span class="step">04 / PAYMENT</span>
+          </div>
+          <div class="payment-options">
+            <label class="payment-option">
+              <input type="radio" name="payment" checked>
+              <span><strong>Bank Transfer</strong><small>Use your saved bank account details</small></span>
+              <b class="payment-mark">▤</b>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment">
+              <span><strong>Credit / Debit Card</strong><small>Use your saved card details</small></span>
+              <b class="payment-mark">▰</b>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment">
+              <span><strong>Cash on Delivery</strong><small>Pay when your order arrives</small></span>
+              <b class="payment-mark">₱</b>
+            </label>
+          </div>
+          <p class="muted" style="margin-top:12px;">For this layout preview, connect your saved payment details from your Profile page when you add the checkout functionality.</p>
+        </section>
+      </div>
+
+      <aside class="right-column">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Voucher <span>Code</span></h2>
+            <span class="step">OPTIONAL</span>
+          </div>
+          <div class="voucher-box">
+            <input type="text" placeholder="Enter voucher code" aria-label="Voucher code">
+            <button class="outline-button" type="button">APPLY</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Order <span>Summary</span></h2>
+          </div>
+          <div class="summary-line"><span>Subtotal</span><strong id="checkout-subtotal">₱0</strong></div>
+          <div class="summary-line"><span>Shipping fee</span><strong id="checkout-shipping">₱0</strong></div>
+          <div class="summary-line"><span>Voucher discount</span><strong id="checkout-discount">₱0</strong></div>
+          <div class="summary-line summary-total"><span>Total Payment</span><strong id="checkout-total">₱0</strong></div>
+          <button class="place-order" type="button" id="place-order" disabled>PLACE ORDER</button>
+          <p class="secure-note" id="checkout-note">Add items from the shop before placing an order.</p>
+          <p class="secure-note">✧ Thank you for choosing Pure Silver Jewelry</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div><strong>Pure Silver Jewelry</strong><p>Elegance that lasts. Crafted for every moment.</p></div>
+    <p>© 2026 Pure Silver Jewelry.</p>
+  </footer>
+
+<script>
+(function(){
+  const list = document.getElementById("checkout-items");
+  const empty = document.getElementById("checkout-empty");
+  const subtotalEl = document.getElementById("checkout-subtotal");
+  const shippingEl = document.getElementById("checkout-shipping");
+  const discountEl = document.getElementById("checkout-discount");
+  const totalEl = document.getElementById("checkout-total");
+  const placeBtn = document.getElementById("place-order");
+  const note = document.getElementById("checkout-note");
+  const money = n => "₱" + Number(n || 0).toLocaleString("en-PH", {maximumFractionDigits: 2});
+  const parsePrice = value => {
+    if (typeof value === "number" && Number.isFinite(value)) return value;
+    const cleaned = String(value ?? "").replace(/[^0-9.]/g, "");
+    const parsed = Number(cleaned);
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+  let items = [];
+  // Read the shared cart key first, then older names used by previous versions.
+  for (const key of ["pureSilverCheckoutItems", "pureSilverCart", "cart", "shoppingCart"]) {
+    try {
+      const stored = JSON.parse(localStorage.getItem(key) || "null");
+      if (Array.isArray(stored) && stored.length) { items = stored; break; }
+    } catch (e) {}
+  }
+  list.innerHTML = "";
+  let subtotal = 0;
+  if (!items.length) {
+    empty.style.display = "block";
+    placeBtn.disabled = true;
+    note.textContent = "Add items from the shop before placing an order.";
+  } else {
+    empty.style.display = "none";
+    items.forEach(item => {
+      const price = parsePrice(item.price ?? item.unitPrice ?? item.amount ?? item.productPrice);
+      const qty = Math.max(1, parseInt(item.quantity ?? item.qty ?? 1, 10) || 1);
+      const lineTotal = price * qty;
+      subtotal += lineTotal;
+      const row = document.createElement("div");
+      row.className = "product";
+      const img = document.createElement("img");
+      img.alt = item.name || item.title || "Product";
+      img.src = item.image || item.img || "";
+      if (!item.image && !item.img) img.style.visibility = "hidden";
+      const info = document.createElement("div");
+      const heading = document.createElement("h3");
+      heading.textContent = item.name || item.title || "Product";
+      const desc = document.createElement("p");
+      desc.textContent = "Quantity: " + qty + " · Unit price: " + money(price);
+      info.append(heading, desc);
+      const amount = document.createElement("div");
+      amount.className = "product-price";
+      amount.textContent = money(lineTotal);
+      row.append(img, info, amount);
+      list.appendChild(row);
+    });
+    placeBtn.disabled = false;
+    note.textContent = "Your selected items are ready for checkout.";
+  }
+  const shipping = 0, discount = 0;
+  subtotalEl.textContent = money(subtotal);
+  shippingEl.textContent = money(shipping);
+  discountEl.textContent = money(discount);
+  totalEl.textContent = money(subtotal + shipping - discount);
+})();
+</script>
+<script>
+(function(){
+  const nameEl=document.getElementById('checkout-recipient');
+  const detailsEl=document.getElementById('checkout-address-details');
+  function readAddresses(){
+    let addresses=[];
+    try{addresses=JSON.parse(localStorage.getItem('pureSilverAddresses')||'[]')}catch(e){addresses=[]}
+    if(!Array.isArray(addresses)) addresses=[];
+    if(!addresses.length){
+      try{const old=localStorage.getItem('pureSilverDeliveryAddress');if(old){addresses=[JSON.parse(old)];addresses[0].active=true;localStorage.setItem('pureSilverAddresses',JSON.stringify(addresses));}}catch(e){}
+    }
+    return addresses;
+  }
+  const addresses=readAddresses();
+  const active=addresses.find(a=>a.active)||addresses[0];
+  if(active){
+    nameEl.textContent=active.recipient||'Recipient';
+    const phone=active.phone||active.contact||active.mobile||active.contactNumber||'';
+    const address=[active.street,active.barangay,active.city,active.province,active.region,active.postal].filter(Boolean).join(', ');
+    detailsEl.textContent=[phone,address,active.instructions].filter(Boolean).join(' · ');
+  }else{
+    nameEl.textContent='No saved address yet';
+    detailsEl.textContent='Add a delivery address in Address.html.';
+  }
+})();
+</script>
+
+</body>
+</html>
